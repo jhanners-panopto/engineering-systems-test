@@ -1,24 +1,19 @@
 repos:
-
-    - name: panopto-core
+    - name: auto-ci-test
       branches:
 
         - name: master
-          merge-to: rainier_hf.04
-
-        - name: rainier_rtd
-          merge-to: rainier_hf.04
-
-        - name: rainier_hf.03
-          merge-to: rainier_hf.03a
-
-        - name: rainier_hf.03a
-          merge-to: rainier_hf.04
-
-        - name: rainier_hf.04
           merge-to:
-            - rainier_hf.05
-            - rainier_rtd.01
+            - hf.03
 
-        - name: rainier_hf.05
-          merge-to: shuksan
+        - name: hf.02
+          merge-to: rtd.01
+
+        - name: hf.03
+          merge-to: hf.04
+
+        - name: rtd.01
+          merge-to: hf.04
+
+        - name: hf.04
+          merge-to: rtd.02
