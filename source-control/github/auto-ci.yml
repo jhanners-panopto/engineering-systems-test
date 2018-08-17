@@ -22,6 +22,8 @@ text:
 
     integration_merge_comment: |
         **Manual merge conflict resolution required**
+        
+        This is the integration pull request, merging from the pinned source branch `{pinned_source_branch_name}` to the integration branch `{integration_branch_name}`.
 
         *Resolve merge conflicts locally*
 
@@ -54,7 +56,7 @@ text:
 
         Note that when all conflicts are resolved in the `{integration_branch_name}` branch, GitHub may automatically mark this pull request as "merged".
 
-        No further action should be required.
+        No further action should be required.  Please do not delete the integration branch; this will be cleaned up by the auto CI tool when it next runs.
 
         *References*
         * [GitHub Automatic Continuous Integration](https://docs.google.com/document/d/1INwUhO40S7Owyb71zGcLbA0yWoXKXA_fJRSGQw1fQ3I/edit)
@@ -62,6 +64,8 @@ text:
     final_merge_comment: |
         **Manual merge conflict resolution _may_ be required**
 
+        This is the final pull request, merging from the integration branch `{integration_branch_name}` to the destination branch `{destination_branch_name}`.
+        
         Manual merge conflict resolution was required when merging from source branch `{pinned_source_branch_name}` to integration branch `{integration_branch_name}`.
 
         Out of an abundance of caution, we require that the final merge to `{destination_branch_name}` be performed manually.
@@ -95,9 +99,9 @@ text:
         git push -u origin head
         ```
 
-        After the integration branch has been updated, get the required number of reviewers to approve the pull request and merge it to the destination branch.
+        After the integration branch has been updated, get the required number of reviewers to approve the pull request and manually merge it to the destination branch.
 
-        No further action should be required.
+        No further action should be required.  Please do not delete the integration branch; this will be cleaned up by the auto CI tool when it next runs.
 
         *References*
         * [GitHub Automatic Continuous Integration](https://docs.google.com/document/d/1INwUhO40S7Owyb71zGcLbA0yWoXKXA_fJRSGQw1fQ3I/edit)
