@@ -21,11 +21,11 @@ repos:
 text:
 
     integration_merge_comment: |
-        **Manual merge conflict resolution required**
-        
+        # Manual merge conflict resolution required
+
         This is the integration pull request, merging from the pinned source branch `{pinned_source_branch_name}` to the integration branch `{integration_branch_name}`.
 
-        *Resolve merge conflicts locally*
+        ## Resolve merge conflicts locally
 
         Run the following commands locally to resolve merge conflicts.
         ```
@@ -35,7 +35,7 @@ text:
         git mergetool
         ```
 
-        *Build locally*
+        ## Build locally
 
         For `shuksan` branches and beyond:
         ```
@@ -46,7 +46,7 @@ text:
         build_solution.bat
         ```
 
-        *Update the integration branch*
+        ## Update the integration branch
 
         When local build passes and merge conflicts are resolved, push to the integration branch.
         ```
@@ -56,23 +56,32 @@ text:
 
         Note that when all conflicts are resolved in the `{integration_branch_name}` branch, GitHub may automatically mark this pull request as "merged".
 
-        No further action should be required.  Please do not delete the integration branch; this will be cleaned up by the auto CI tool when it next runs.
+        # Finish
 
-        *References*
+        No further action should be required.  Do not delete the integration branch; this will be cleaned up by the auto CI tool when it next runs.
+
+        # References
+
         * [GitHub Automatic Continuous Integration](https://docs.google.com/document/d/1INwUhO40S7Owyb71zGcLbA0yWoXKXA_fJRSGQw1fQ3I/edit)
 
     final_merge_comment: |
-        **Manual merge conflict resolution _may_ be required**
+        # Manual merge conflict resolution _may_ be required
 
         This is the final pull request, merging from the integration branch `{integration_branch_name}` to the destination branch `{destination_branch_name}`.
-        
+
         Manual merge conflict resolution was required when merging from source branch `{pinned_source_branch_name}` to integration branch `{integration_branch_name}`.
 
         Out of an abundance of caution, we require that the final merge to `{destination_branch_name}` be performed manually.
 
-        *Resolve merge conflicts locally*
+        ## If manual merge conflict resolution _is not_ required
 
-        _If needed_, run the following commands locally to resolve merge conflicts.
+        Get the required number of reviewers to approve the pull request and manually merge it to the destination branch.
+
+        ## If manual merge conflict resolution _is_ required
+
+        ### Resolve merge conflicts locally
+
+        Run the following commands locally to resolve merge conflicts.
         ```
         git fetch --all
         git checkout -B "{integration_branch_name}" "origin/{integration_branch_name}"
@@ -80,7 +89,7 @@ text:
         git mergetool
         ```
 
-        *Build locally*
+        ### Build locally
 
         For `shuksan` branches and beyond:
         ```
@@ -91,7 +100,7 @@ text:
         build_solution.bat
         ```
 
-        *Update the integration branch*
+        ### Update the integration branch
 
         When local build passes and merge conflicts are resolved, push to the integration branch.
         ```
@@ -101,34 +110,50 @@ text:
 
         After the integration branch has been updated, get the required number of reviewers to approve the pull request and manually merge it to the destination branch.
 
-        No further action should be required.  Please do not delete the integration branch; this will be cleaned up by the auto CI tool when it next runs.
+        # Finish
 
-        *References*
+        No further action should be required.  Do not delete the integration branch; this will be cleaned up by the auto CI tool when it next runs.
+
+        # References
+
         * [GitHub Automatic Continuous Integration](https://docs.google.com/document/d/1INwUhO40S7Owyb71zGcLbA0yWoXKXA_fJRSGQw1fQ3I/edit)
 
     commit_state_is_not_success: |
-        **Manual investigation required**
+        # Manual investigation required
 
-        Commit state on this pull request is `{commit_state}`. Please review the pull request and see if this is a build or test failure.
+        Commit state on this pull request is `{commit_state}`. Review the pull request status and determine if this is a build or test failure.
 
-        *Build failures*
+        ## Build failures
 
-        If this is a build failure which must be fixed, please fix the build break, then cancel this integration cycle.
+        Fix the build break, then cancel this integration cycle.
 
-        *Test failures*
+        ## Test failures
 
-        Do not merge test failures forward unless there is a compelling business reason to do so.  Please fix the test failure, then cancel this integration cycle.
+        _Do not merge test failures forward unless there is a compelling business reason to do so._
 
-        *Transient build and test failures*
+        ### If you decide to merge the test failure forward
 
-        If this is a build or test failure due to some external event, e.g., network outage, please queue a new buddy build for branch {integration_branch_name}.
+        Document in this PR why propagating the test failure is the desired choice, get the required number of reviewers to approve the pull request, then manually merge this pull request.
 
-        *Canceling the integration cycle*
+        No further action should be required.  Do not delete the integration branch; this will be cleaned up by the auto CI tool when it next runs.
+
+        ### If you decide to not merge the test failure forward.
+
+        Fix the test failure, then cancel this integration cycle.
+
+        ## Transient build or test failures
+
+        If this is a build or test failure due to some external event, e.g., network outage, queue a new buddy build for branch `{integration_branch_name}`.
+
+        When that build completes and passes, the auto CI process should resume automatically.
+
+        ## Canceling the integration cycle
 
         To cancel this integration cycle and have it automatically restart, run the following command:
         ```
         gtb-auto-ci --credentials <path to your credentials file> --action cancel --repo {repo_name} --source-branch {source_branch_name} --destination-branch {destination_branch_name}
         ```
 
-        *References*
+        # References
+
         * [GitHub Automatic Continuous Integration](https://docs.google.com/document/d/1INwUhO40S7Owyb71zGcLbA0yWoXKXA_fJRSGQw1fQ3I/edit)
