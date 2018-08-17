@@ -17,3 +17,114 @@ repos:
 
         - name: hf.04
           merge-to: rtd.02
+
+text:
+
+    integration_merge_comment: |
+        **Manual merge conflict resolution required**
+
+        *Resolve merge conflicts locally*
+
+        Run the following commands locally to resolve merge conflicts.
+        ```
+        git fetch --all
+        git checkout -B "{integration_branch_name}" "origin/{integration_branch_name}"
+        git merge "origin/{pinned_source_branch_name}"
+        git mergetool
+        ```
+
+        *Build locally*
+
+        For `shuksan` branches and beyond:
+        ```
+        python.exe build_solution.py --clean --db-name LocalMergeConflictResolution
+        ```
+        For branches prior to `shuksan`:
+        ```
+        build_solution.bat
+        ```
+
+        *Update the integration branch*
+
+        When local build passes and merge conflicts are resolved, push to the integration branch.
+        ```
+        git commit -m "Manually resolve conflicts for merge from {pinned_source_branch_name} to {integration_branch_name}"
+        git push -u origin head
+        ```
+
+        Note that when all conflicts are resolved in the `{integration_branch_name}` branch, GitHub may automatically mark this pull request as "merged".
+
+        No further action should be required.
+
+        *References*
+        * [GitHub Automatic Continuous Integration](https://docs.google.com/document/d/1INwUhO40S7Owyb71zGcLbA0yWoXKXA_fJRSGQw1fQ3I/edit)
+
+    final_merge_comment: |
+        **Manual merge conflict resolution _may_ be required**
+
+        Manual merge conflict resolution was required when merging from source branch `{pinned_source_branch_name}` to integration branch `{integration_branch_name}`.
+
+        Out of an abundance of caution, we require that the final merge to `{destination_branch_name}` be performed manually.
+
+        *Resolve merge conflicts locally*
+
+        _If needed_, run the following commands locally to resolve merge conflicts.
+        ```
+        git fetch --all
+        git checkout -B "{integration_branch_name}" "origin/{integration_branch_name}"
+        git merge "origin/{destination_branch_name}"
+        git mergetool
+        ```
+
+        *Build locally*
+
+        For `shuksan` branches and beyond:
+        ```
+        python.exe build_solution.py --clean --db-name LocalMergeConflictResolution
+        ```
+        For branches prior to `shuksan`:
+        ```
+        build_solution.bat
+        ```
+
+        *Update the integration branch*
+
+        When local build passes and merge conflicts are resolved, push to the integration branch.
+        ```
+        git commit -m "Manually resolve conflicts for merge from {integration_branch_name} to {destination_branch_name}"
+        git push -u origin head
+        ```
+
+        After the integration branch has been updated, get the required number of reviewers to approve the pull request and merge it to the destination branch.
+
+        No further action should be required.
+
+        *References*
+        * [GitHub Automatic Continuous Integration](https://docs.google.com/document/d/1INwUhO40S7Owyb71zGcLbA0yWoXKXA_fJRSGQw1fQ3I/edit)
+
+    commit_state_is_not_success: |
+        **Manual investigation required**
+
+        Commit state on this pull request is `{commit_state}`. Please review the pull request and see if this is a build or test failure.
+
+        *Build failures*
+
+        If this is a build failure which must be fixed, please fix the build break, then cancel this integration cycle.
+
+        *Test failures*
+
+        Do not merge test failures forward unless there is a compelling business reason to do so.  Please fix the test failure, then cancel this integration cycle.
+
+        *Transient build and test failures*
+
+        If this is a build or test failure due to some external event, e.g., network outage, please queue a new buddy build for branch {integration_branch_name}.
+
+        *Canceling the integration cycle*
+
+        To cancel this integration cycle and have it automatically restart, run the following command:
+        ```
+        gtb-auto-ci --credentials <path to your credentials file> --action cancel --repo {repo_name} --source-branch {source_branch_name} --destination-branch {destination_branch_name}
+        ```
+
+        *References*
+        * [GitHub Automatic Continuous Integration](https://docs.google.com/document/d/1INwUhO40S7Owyb71zGcLbA0yWoXKXA_fJRSGQw1fQ3I/edit)
