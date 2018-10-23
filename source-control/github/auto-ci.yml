@@ -23,7 +23,8 @@ text:
     integration_merge_comment: |
         # Manual merge conflict resolution required
 
-        This is the integration pull request, merging from the pinned source branch `{pinned_source_branch_name}` to the integration branch `{integration_branch_name}`.
+        This is the integration pull request, merging from the pinned source branch `{pinned_source_branch_name}` to the
+        integration branch `{integration_branch_name}`.
 
         ## Resolve merge conflicts locally
 
@@ -54,11 +55,13 @@ text:
         git push -u origin head
         ```
 
-        Note that when all conflicts are resolved in the `{integration_branch_name}` branch, GitHub may automatically mark this pull request as "merged".
+        Note that when all conflicts are resolved in the `{integration_branch_name}` branch, GitHub may automatically mark
+        this pull request as "merged".
 
         # Finish
 
-        No further action should be required.  Do not delete the integration branch; this will be cleaned up by the auto CI tool when it next runs.
+        No further action should be required.  Do not delete the integration branch; this will be cleaned up by the auto CI
+        tool when it next runs.
 
         # References
 
@@ -67,11 +70,14 @@ text:
     final_merge_comment: |
         # Manual merge conflict resolution _may_ be required
 
-        This is the final pull request, merging from the integration branch `{integration_branch_name}` to the destination branch `{destination_branch_name}`.
+        This is the final pull request, merging from the integration branch `{integration_branch_name}` to the destination
+        branch `{destination_branch_name}`.
 
-        Manual merge conflict resolution was required when merging from source branch `{pinned_source_branch_name}` to integration branch `{integration_branch_name}`.
+        Manual merge conflict resolution was required when merging from source branch `{pinned_source_branch_name}` to
+        integration branch `{integration_branch_name}`.
 
-        Out of an abundance of caution, we require that the final merge to `{destination_branch_name}` be performed manually.
+        Out of an abundance of caution, we require that the final merge to `{destination_branch_name}` be performed
+        manually.
 
         ## If manual merge conflict resolution _is not_ required
 
@@ -108,11 +114,13 @@ text:
         git push -u origin head
         ```
 
-        After the integration branch has been updated, get the required number of reviewers to approve the pull request and manually merge it to the destination branch.
+        After the integration branch has been updated, get the required number of reviewers to approve the pull request and
+        manually merge it to the destination branch.
 
         # Finish
 
-        No further action should be required.  Do not delete the integration branch; this will be cleaned up by the auto CI tool when it next runs.
+        No further action should be required.  Do not delete the integration branch; this will be cleaned up by the auto CI
+        tool when it next runs.
 
         # References
 
@@ -121,7 +129,8 @@ text:
     commit_state_is_not_success: |
         # Manual investigation required
 
-        Commit state on this pull request is `{commit_state}`. Review the pull request status and determine if this is a build or test failure.
+        Commit state on this pull request is `{commit_state}`. Review the pull request status and determine if this is a
+        build or test failure.
 
         ## Build failures
 
@@ -133,9 +142,11 @@ text:
 
         ### If you decide to merge the test failure forward
 
-        Document in this PR why propagating the test failure is the desired choice, get the required number of reviewers to approve the pull request, then manually merge this pull request.
+        Document in this PR why propagating the test failure is the desired choice, get the required number of reviewers to
+        approve the pull request, then manually merge this pull request.
 
-        No further action should be required.  Do not delete the integration branch; this will be cleaned up by the auto CI tool when it next runs.
+        No further action should be required.  Do not delete the integration branch; this will be cleaned up by the auto CI
+        tool when it next runs.
 
         ### If you decide to not merge the test failure forward.
 
@@ -143,7 +154,8 @@ text:
 
         ## Transient build or test failures
 
-        If this is a build or test failure due to some external event, e.g., network outage, queue a new buddy build for branch `{integration_branch_name}`.
+        If this is a build or test failure due to some external event, e.g., network outage, queue a new buddy build for
+        branch `{integration_branch_name}`.
 
         When that build completes and passes, the auto CI process should resume automatically.
 
@@ -151,7 +163,8 @@ text:
 
         To cancel this integration cycle and have it automatically restart, run the following command:
         ```
-        gtb-auto-ci --credentials <path to your credentials file> --action cancel --repo {repo_name} --source-branch {source_branch_name} --destination-branch {destination_branch_name}
+        gtb-auto-ci --credentials <path to your credentials file> --action cancel --repo {repo_name} --source-branch
+        {source_branch_name} --destination-branch {destination_branch_name}
         ```
 
         # References
