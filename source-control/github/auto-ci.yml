@@ -73,12 +73,6 @@ text:
         This is the final pull request, merging from the integration branch `{integration_branch_name}` to the destination
         branch `{destination_branch_name}`.
 
-        Manual merge conflict resolution was required when merging from source branch `{pinned_source_branch_name}` to
-        integration branch `{integration_branch_name}`.
-
-        Out of an abundance of caution, we require that the final merge to `{destination_branch_name}` be performed
-        manually.
-
         ## If manual merge conflict resolution _is not_ required
 
         Get the required number of reviewers to approve the pull request and manually merge it to the destination branch.
